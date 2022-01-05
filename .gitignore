@@ -1,7 +1,7 @@
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
 /yolov5/data/images
 /yolov5/runs/train
-/yolov5/wandb/*
+yolov5/wandb/run*
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
 *.pt
@@ -49,4 +49,3 @@ Icon?
 Network Trash Folder
 Temporary Items
 .apdisk
-run-20211206_122513-2wjgje00
