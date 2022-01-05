@@ -1,7 +1,7 @@
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
 /yolov5/data/images
 /yolov5/runs/train
-/yolov5/wandb/run*
+/yolov5/wandb/*
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
 *.pt
