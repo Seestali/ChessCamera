@@ -1,6 +1,7 @@
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
-runs/train/exp*
-
+/yolov5/data/images
+/yolov5/runs/train
+/yolov5/wandb/run*
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
 *.pt
@@ -14,33 +15,26 @@ runs/train/exp*
 *_web_model/
 darknet53.conv.74
 yolov3-tiny.conv.15
-
 # GitHub Python GitIgnore ----------------------------------------------------------------------------------------------
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
 # dotenv
 .env
-
 # virtualenv
 .venv*
 venv*/
 ENV*/
-
 # General
 .DS_Store
 .AppleDouble
 .LSOverride
-
 # Icon must end with two \r
 Icon
 Icon?
-
 # Thumbnails
 ._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -49,10 +43,10 @@ Icon?
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
+run-20211206_122513-2wjgje00
