@@ -49,3 +49,9 @@ Icon?
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# User-specific stuff:
+.idea/*
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
