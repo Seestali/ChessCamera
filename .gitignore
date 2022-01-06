@@ -55,3 +55,5 @@ Temporary Items
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+/datasets/Chess-Pieces/train/labels.cache
+/datasets/Chess-Pieces/valid/labels.cache
