@@ -1,4 +1,4 @@
-python3 train.py --batch -1 --batch-size 2 --epochs 3 --img 416 --data ..\datasets\Chess-Pieces\data.yaml --weights weights\yolov5n.pt
+python3 train.py --batch -1 --batch-size 2 --epochs 300 --img 416 --data ..\datasets\Chess-Pieces\data.yaml --weights weights\yolov5n.pt
 
 									 	  \Chess-Pieces_big\data.yaml 	 	   \yolov5l.pt
 									 	  			 	 	   \yolov5m.pt
