@@ -4,7 +4,7 @@
 yolov5/wandb/run*
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
-*.pt
+yolov5/weights/*.pt
 *.pb
 *.onnx
 *.mlmodel
