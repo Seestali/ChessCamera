@@ -55,3 +55,4 @@ Temporary Items
 .idea/**/tasks.xml
 .idea/dictionaries
 labels.cache
+yolov5/runs/detect/*
