@@ -4,7 +4,7 @@ The content of this file will describe how to use this project.
 ##Training
 
 Training is done via terminal. The following command is an example of how it is used.
-`python3 train.py --batch -1 --batch-size 3 --epochs 300 --img 416 --data ../datasets/Chess-Pieces_big/data.yaml --weights weights/yolov5n.pt`
+`python3 train.py --batch -1 --batch-size 3 --epochs 150 --img 416 --data ../datasets/Chess-Pieces_big/data.yaml --weights weights/yolov5n6.pt`
 
 --data
 - ../datasets/Chess-Pieces_big/data.yaml
