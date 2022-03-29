@@ -1,5 +1,0 @@
-train: ../datasets/Chess-Pieces_big_grey/train/images
-val: ../datasets/Chess-Pieces_big_grey/valid/images
-
-nc: 12
-names: ['black-bishop', 'black-king', 'black-knight', 'black-pawn', 'black-queen', 'black-rook', 'white-bishop', 'white-king', 'white-knight', 'white-pawn', 'white-queen', 'white-rook']
