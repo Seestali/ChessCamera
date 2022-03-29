@@ -1,4 +1,19 @@
 import numpy as np
+from enum import Enum
+# Define enum with chess pieces to classes
+class Pieces(Enum):
+    b = 0
+    k = 1
+    n = 2
+    p = 3
+    q = 4
+    r = 5
+    B = 6
+    K = 7
+    N = 8
+    P = 9
+    Q = 10
+    R = 11
 
 #create point class with x and y coordinates
 class Point:
@@ -26,11 +41,45 @@ class ChessBoard:
         self.tiles = np.zeros((8, 8), dtype=Tile)
 
 #draw ChessBoard matrix graphically
-def drawBoard(board):
+def draw(board):
     for i in range(8):
         for j in range(8):
             if board.tiles[i][j].figure.type == 'none':
                 print('|-|', end='')
             else:
-                print(board.tiles[i][j].figure.type, end='')
+                print('|' + str(Pieces(board.tiles[i][j].figure.type).name) + '|', end='')
         print()
+
+# clear figures from ChessBoard matrix
+def clear(board):
+    for i in range(8):
+        for j in range(8):
+            board.tiles[i][j].figure.type = 'none'
+            board.tiles[i][j].figure.position = (0, 0)
+
+# chessboard matrix to fen
+def board_to_fen(board):
+    FEN = ''
+    counter = 0
+    for i in range(8):
+        for j in range(8):
+            if board.tiles[i][j].figure.type == 'none':
+                counter += 1
+            else:
+                if counter != 0:
+                    FEN += str(counter)
+                    counter = 0
+                FEN += Pieces(board.tiles[i][j].figure.type).name
+        if counter != 0:
+            FEN += str(counter)
+            counter = 0
+        FEN += '/'
+    return FEN
+
+# compare two fen strings and sum up the differences
+def compare_fen(fen1, fen2):
+    errors = 0
+    for i in range(len(fen1)):
+        if fen1[i] != fen2[i]:
+            errors += 1
+    return errors
