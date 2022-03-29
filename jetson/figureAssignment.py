@@ -25,13 +25,13 @@ def calculateMidpoint(p1, p2):
 def getmidPointOfFigures(interference):
     figures = []
     for result in interference.pandas().xyxy[0].to_dict(orient="records"):
-        name = result['name']
+        cs = result['class']
         x1 = result['xmin']
         x2 = result['xmax']
         y2 = result['ymax']
         p1 = Point([x1,y2])
         p2 = Point([x2,y2])
-        figures.append(ChessFigure(name, calculateMidpoint(p1, p2)))
+        figures.append(ChessFigure(cs, calculateMidpoint(p1, p2)))
     return figures
 #####
 # Main function to assign figure to tile
