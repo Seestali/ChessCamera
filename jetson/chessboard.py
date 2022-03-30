@@ -77,8 +77,25 @@ def board_to_fen(board):
     return FEN
 
 # compare two fen strings and sum up the differences
-def compare_fen(fen1, fen2):
+def compare_fen(fen1, fen2, precise=True):
     errors = 0
+    # replace numbers to fill both fen strings with same length
+    for i in fen1:
+        if i.isdigit():
+            fen1 = fen1.replace(i, '*' * int(i))
+    for i in fen2:
+        if i.isdigit():
+            fen2 = fen2.replace(i, '*' * int(i))
+    # remove special characters
+    fen1 = fen1.replace('/', '')
+    fen2 = fen2.replace('/', '')
+
+    # if precise is false, lower both strings = no color
+    if precise == False:
+        fen1 = fen1.lower()
+        fen2 = fen2.lower()
+
+    # compare strings and sum differences
     for i in range(len(fen1)):
         if fen1[i] != fen2[i]:
             errors += 1
