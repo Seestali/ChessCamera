@@ -77,6 +77,7 @@ def board_to_fen(board):
     return FEN
 
 # compare two fen strings and sum up the differences
+# precise = false both strings will be transformed to lowercase so no color difference
 def compare_fen(fen1, fen2, precise=True):
     errors = 0
     # replace numbers to fill both fen strings with same length
@@ -100,3 +101,47 @@ def compare_fen(fen1, fen2, precise=True):
         if fen1[i] != fen2[i]:
             errors += 1
     return errors
+
+# number of figures and type of figures are compared
+# type = false, only number of figures are compared
+def compare_figureNumber_fen(fen1, fen2, type=True):
+    # remove special characters
+    fen1 = fen1.replace('/', '')
+    fen2 = fen2.replace('/', '')
+
+    # remove all numbers in string
+    res1 = ''.join([i for i in fen1 if not i.isdigit()])
+    res2 = ''.join([i for i in fen2 if not i.isdigit()])
+    # if precise is false, lower both strings = no color
+
+    #if type is true, compare each element of res1 with res2 and remove if in res2
+    if type:
+        for i in res2:
+            if i in res1:
+                res1 = res1.replace(i, '')
+                res2 = res1.replace(i, '')
+        return len(res2) + len(res1)
+
+    # compare length of strings and return difference
+    return abs(len(res1) - len(res2))
+
+def compare_color_fen(fen1, fen2, color):
+    # remove special characters
+    fen1 = fen1.replace('/', '')
+    fen2 = fen2.replace('/', '')
+
+    # remove all numbers in string
+    res1 = ''.join([i for i in fen1 if not i.isdigit()])
+    res2 = ''.join([i for i in fen2 if not i.isdigit()])
+
+    if color == 'white':
+        return abs(charsUpperCase(res1) - charsUpperCase(res2))
+    if color == 'black':
+        return abs(charsLowerCase(res1) - charsLowerCase(res2))
+
+
+def charsUpperCase(string):
+    return sum(1 for c in string if c.isupper())
+
+def charsLowerCase(string):
+    return sum(1 for c in string if c.isupper())
