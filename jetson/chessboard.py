@@ -1,5 +1,13 @@
 import numpy as np
 from enum import Enum
+##############
+# This is a class for a chessboard.
+# It contains the board, the pieces, and the tiles.
+# It also contains the methods for printing the board,
+# and for comparing the board to another board (FEN).
+##############
+
+
 # Define enum with chess pieces to classes
 class Pieces(Enum):
     b = 0

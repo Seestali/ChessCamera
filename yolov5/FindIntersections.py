@@ -24,9 +24,9 @@ def segment_lines(lines, delta):
     return h_lines, v_lines
 
 def findIntersections(file):
-    image = cv2.imread(file)
+    image = file
     im_gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-    edges = cv2.Canny(im_gray,50,150, apertureSize= 3)
+    edges = cv2.Canny(im_gray,40,100, apertureSize= 3)
     lines = cv2.HoughLinesP(image=edges,rho=1,theta=np.pi/180, threshold=100,lines=np.array([]), minLineLength=100,maxLineGap=80)
     delta = 100
     h_lines, v_lines = segment_lines(lines, delta)
@@ -67,7 +67,7 @@ def findIntersections(file):
 #######################
 
 def harrisCornerDetection(file):
-    image = cv2.imread(file)
+    image = file
     gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
     r, gray = cv2.threshold(gray, 120, 255, type=cv2.THRESH_BINARY)
@@ -90,10 +90,10 @@ def harrisCornerDetection(file):
 #######################
 
 def drawHoughLinesP(file):
-    image = cv2.imread(file)
+    image = file
     im_gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     edges = cv2.Canny(im_gray,50,150, apertureSize= 3)
-    lines = cv2.HoughLinesP(image=edges,rho=1,theta=np.pi/180, threshold=100,lines=np.array([]), minLineLength=100,maxLineGap=80)
+    lines = cv2.HoughLinesP(image=edges,rho=1,theta=np.pi/180, threshold=200,lines=np.array([]), minLineLength=100,maxLineGap=80)
     a,b,c = lines.shape
     for i in range(a):
         cv2.line(image,(lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (255, 255, 0), 3, cv2.LINE_AA)

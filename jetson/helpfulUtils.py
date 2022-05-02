@@ -1,4 +1,9 @@
 import csv
+##############
+# Helpful functions
+# Contains functions to read in csv files and return each line as a list.
+##############
+
 # read csv file and return a list of lines
 def readCSV(filepath):
     lines = []

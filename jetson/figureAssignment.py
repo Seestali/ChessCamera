@@ -1,9 +1,13 @@
 from shapely.geometry.polygon import Polygon
 from shapely.geometry import Point as ShaplyPoint
 from jetson.chessboard import *
+##############
+# Connection between figure detection and chessboard detection
+##############
+
 
 #####
-# Check if point is in rectangle
+# Check if point is in polygon area
 #####
 def pointIsInArea(point, tile):
     point = ShaplyPoint(point.x, point.y)
@@ -14,6 +18,8 @@ def pointIsInArea(point, tile):
         return False
 #####
 # Calculate midpoint between two points
+# This is done analytically and used to determine bottom center of the figure.
+# This point is then used to relate the figure to the chessboard-tile.
 #####
 
 def calculateMidpoint(p1, p2):
@@ -21,6 +27,7 @@ def calculateMidpoint(p1, p2):
 
 #####
 # Calculate midpoint ob bottom bounding box border
+# Midpoint is already calculated and added as point object to figure object (position)
 #####
 def getmidPointOfFigures(interference):
     figures = []

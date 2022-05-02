@@ -1,5 +1,12 @@
 import cv2
 from jetson.chessboard import *
+##############
+# This is the class file for the chessboard (corners) detection.
+# It is used to detect the chessboard corners in the image.
+# This is the method to determine the corner points on the analytical way.
+##############
+
+
 #####
 # Matrix transformation
 #####
