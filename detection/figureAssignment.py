@@ -1,6 +1,9 @@
-from shapely.geometry.polygon import Polygon
 from shapely.geometry import Point as ShaplyPoint
-from detection.chessboard import *
+from shapely.geometry.polygon import Polygon
+
+from .chessboard import *
+
+
 ##############
 # Connection between figure detection and chessboard detection
 ##############

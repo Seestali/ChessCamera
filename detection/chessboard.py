@@ -1,5 +1,8 @@
-import numpy as np
 from enum import Enum
+
+import numpy as np
+
+
 ##############
 # This is a class for a chessboard.
 # It contains the board, the pieces, and the tiles.
@@ -64,6 +67,17 @@ def clear(board):
         for j in range(8):
             board.tiles[i][j].figure.type = 'none'
             board.tiles[i][j].figure.position = (0, 0)
+
+# finds out which orientation the board has
+def findRotation(board):
+    if not board.tiles[0][0].figure.type == 'none':
+        return 3
+    if not board.tiles[0][7].figure.type == 'none':
+        return 0
+    if not board.tiles[7][7].figure.type == 'none':
+        return 1
+    else:
+        return 0
 
 # chessboard matrix to fen
 def board_to_fen(board):
