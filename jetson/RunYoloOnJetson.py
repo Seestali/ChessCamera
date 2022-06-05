@@ -1,20 +1,19 @@
-import os, torch
+import os, torch, cv2
 from detection.figureAssignment import *
 from detection.chessLocalisation import *
 from time import sleep
 
-chessboard = None
-orientation = 0
-
-##### Setup #####
-
-# Model
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/best.pt')  # local model
-model.conf = 0.25
-
 ##### Main #####
 # initiate interactive TUI
 def mainMenu():
+    chessboard = None
+    isOriented = False
+    orientation = 0
+
+
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/best.pt')  # local model
+    model.conf = 0.25
+
     while True:
         clear_console()
         print(34*"-")
@@ -27,23 +26,45 @@ def mainMenu():
         if choice == "1":
             clear_console()
             print("Opening camera feed...")
-            print("Press any key to quit")
             # open camera feed
+            print("Press any key to quit to main menu")
             c = waitForUserInput()
-            print("Closing camera feed...")
             # close camera feed
+            print("Closing camera feed...")
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
-            sleep(2)
-            # take picture with camera
-            #chessboard = setup(image)
-            # detectOrientation()
-            global chessboard
-            chessboard = ChessBoard()
-            print("Detection done")
-            print("Press any key to return to the main menu")
-            c = waitForUserInput()
+            # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
+            # save with specific filename
+            # save resized as 416 x 416! important for model.
+
+            # get file from directory
+            img = 'cameraFeed/rotation270.jpeg'
+            chessboard = setup(img)  # returns the chessboard tiles
+
+            if chessboard is not None:
+                print("Chessboard detected")
+                # Inference
+                interference = model(img, size=416)
+                # Assign figure to chessboard
+                chessboard = assignFigures(interference, chessboard)
+                print("Figures assigned")
+
+                orientation = findRotation(chessboard)
+                print("Orientation detected: " + str(orientation * 90))
+                print("Remembering orientation")
+
+                print("Chessboard orientation corrected")
+                #chessboard.tiles = np.rot90(chessboard.tiles, k=orientation, axes=(1, 0))  # axes=(1,0) ==> 90 deg clockwise; axes(0,1) ==> 90 deg counterclockwise
+                draw(chessboard)
+                #clear chessboard from setup process
+                clear(chessboard)
+                print("Press any key to quit to main menu")
+                c = waitForUserInput()
+            else:
+                print("Could not detect chessboard...")
+                print("Press any key to quit to main menu")
+                c = waitForUserInput()
         elif choice == "3":
             clear_console()
             if chessboard is None:
@@ -51,11 +72,22 @@ def mainMenu():
                 print("Press any key to return to the main menu")
                 c = waitForUserInput()
             else:
+                # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
+                # save with specific filename
+                # save resized as 416 x 416! important for model.
+
+                # get file from directory
+                img = 'cameraFeed/rotation270.jpeg'
+
                 print("Running detection")
-                sleep(2)
-                #runDetection()
+                interference = model(img, size=416)
+                # Assign figure to chessboard
+                chessboard = assignFigures(interference, chessboard)
+                chessboard_copy = chessboard
+                chessboard_copy.tiles = np.rot90(chessboard_copy.tiles, k=orientation, axes=(1, 0))  # axes=(1,0) ==> 90 deg clockwise; axes(0,1) ==> 90 deg counterclockwise
                 print("Detection done")
-                print("FEN-String: hier")
+                print("FEN-String: " + board_to_fen(chessboard_copy))
+                clear(chessboard)
                 print("Press any key to return to the main menu")
                 c = waitForUserInput()
         elif choice == "4":
@@ -72,19 +104,4 @@ def clear_console():
 if __name__ == "__main__":
     mainMenu()
 
-
-
-
-# 2. case: detect chessboard with figure on A1
-# 2.1 case: detection successful
-# save chessboard position somewhere
-# 2.2 case: detection unsuccessful
-# instructions to increase success rate:
-
-# 2.3 case: detect figures on chessboard
-# take picture of chessboard with camera feed
-# run yolo on picture
-# display FEM-String
-
-# wait for user input and return value
 
