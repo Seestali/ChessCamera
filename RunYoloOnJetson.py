@@ -1,6 +1,7 @@
-import os, torch, cv2
+
 from detection.figureAssignment import *
 from detection.chessLocalisation import *
+import os, torch, cv2
 from time import sleep
 
 ##### Main #####
@@ -11,7 +12,7 @@ def mainMenu():
     orientation = 0
 
 
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/best.pt')  # local model
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
     model.conf = 0.25
 
     while True:
@@ -39,7 +40,7 @@ def mainMenu():
             # save resized as 416 x 416! important for model.
 
             # get file from directory
-            img = 'cameraFeed/rotation270.jpeg'
+            img = 'jetson/cameraFeed/rotation270.jpeg'
             chessboard = setup(img)  # returns the chessboard tiles
 
             if chessboard is not None:
@@ -77,7 +78,7 @@ def mainMenu():
                 # save resized as 416 x 416! important for model.
 
                 # get file from directory
-                img = 'cameraFeed/rotation270.jpeg'
+                img = 'jetson/cameraFeed/rotation270.jpeg'
 
                 print("Running detection")
                 interference = model(img, size=416)
