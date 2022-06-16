@@ -1,6 +1,7 @@
 
 from detection.figureAssignment import *
 from detection.chessLocalisation import *
+from cameraModule.cameraInteractions import *
 import os, torch, cv2
 from time import sleep
 
@@ -27,21 +28,24 @@ def mainMenu():
         if choice == "1":
             clear_console()
             print("Opening camera feed...")
+            print("Press q or ESC to exit to main menu")
             # open camera feed
-            print("Press any key to quit to main menu")
-            c = waitForUserInput()
+            show_camera()
             # close camera feed
             print("Closing camera feed...")
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
+            img = captureImage()
             # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
             # save with specific filename
             # save resized as 416 x 416! important for model.
 
             # get file from directory
-            img = 'jetson/cameraFeed/rotation270.jpeg'
-            chessboard = setup(img)  # returns the chessboard tiles
+            #img = 'jetson/cameraFeed/rotation270.jpeg'
+
+            # imread taken frame
+            chessboard = setup(cv2.imread(img))  # returns the chessboard tiles
 
             if chessboard is not None:
                 print("Chessboard detected")
@@ -73,15 +77,10 @@ def mainMenu():
                 print("Press any key to return to the main menu")
                 c = waitForUserInput()
             else:
-                # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
-                # save with specific filename
-                # save resized as 416 x 416! important for model.
-
-                # get file from directory
-                img = 'jetson/cameraFeed/rotation270.jpeg'
-
+                img = captureImage()
+                image = cv2.resize(img, (416, 416))
                 print("Running detection")
-                interference = model(img, size=416)
+                interference = model(image, size=416)
                 # Assign figure to chessboard
                 chessboard = assignFigures(interference, chessboard)
                 chessboard_copy = chessboard
