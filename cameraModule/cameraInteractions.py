@@ -1,4 +1,4 @@
-import cv2
+import cv2, time
 
 """ 
 gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
@@ -35,20 +35,24 @@ def gstreamer_pipeline(
     )
 
 def captureImage():
-    cap = cv2.VideoCapture(0)
+    # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
+    print(gstreamer_pipeline(flip_method=2))
+    video_capture = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+    if video_capture.isOpened():
+        try:
+            time.sleep(2)
+            ret_val, frame = video_capture.read()
+            # Check to see if the user closed the window
+            # Under GTK+ (Jetson Default), WND_PROP_VISIBLE does not work correctly. Under Qt it does
+            # GTK - Substitute WND_PROP_AUTOSIZE to detect if window has been closed by user
+            cv2.imwrite("img.jpg", frame)
+        finally:
+            video_capture.release()
+            cv2.destroyAllWindows()
 
-    if not cap.isOpened():
+    else:
         print("Error: Unable to open camera")
-        return -1
 
-    # Capture frame
-    ret, frame = cap.read()
-    if not ret:
-        print("failed to grab frame")
-        return -1
-    cv2.imshow("test", frame)
-    k = cv2.waitKey(1)
-    cap.release()
 
 def show_camera():
     window_title = "CSI Camera"
