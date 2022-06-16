@@ -35,7 +35,7 @@ def gstreamer_pipeline(
     )
 
 def captureImage():
-    cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+    cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
         print("Error: Unable to open camera")
@@ -43,9 +43,11 @@ def captureImage():
 
     # Capture frame
     ret, frame = cap.read()
-    if ret:
-        cv2.imwrite('home/chesscamera/Projects/testimage.jpg', frame)
-
+    if not ret:
+        print("failed to grab frame")
+        return -1
+    cv2.imshow("test", frame)
+    k = cv2.waitKey(1)
     cap.release()
 
 def show_camera():
