@@ -9,12 +9,12 @@ Default 1920x1080 displayd in a 1/4 size window
 
 def gstreamer_pipeline(
     sensor_id=0,
-    capture_width=1920,
-    capture_height=1080,
-    display_width=960,
-    display_height=540,
-    framerate=30,
-    flip_method=0,
+    capture_width=3264,
+    capture_height=2464,
+    display_width=816,
+    display_height=616,
+    framerate=21,
+    flip_method=2,
 ):
     return (
         "nvarguscamerasrc sensor-id=%d !"
@@ -35,7 +35,11 @@ def gstreamer_pipeline(
     )
 
 def captureImage():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+
+    if not cap.isOpened():
+        print("Error: Unable to open camera")
+        return -1
 
     # Capture frame
     ret, frame = cap.read()
