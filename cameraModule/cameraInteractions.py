@@ -1,13 +1,20 @@
 import cv2
 
-def stream_pipeline(
+""" 
+gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
+Flip the image by setting the flip_method (most common values: 0 and 2)
+display_width and display_height determine the size of each camera pane in the window on the screen
+Default 1920x1080 displayd in a 1/4 size window
+"""
+
+def gstreamer_pipeline(
     sensor_id=0,
     capture_width=1920,
     capture_height=1080,
-    display_width=1270,
-    display_height=720,
+    display_width=960,
+    display_height=540,
     framerate=30,
-    flip_method=2,
+    flip_method=0,
 ):
     return (
         "nvarguscamerasrc sensor-id=%d !"
@@ -27,11 +34,22 @@ def stream_pipeline(
         )
     )
 
-def show_camera():
-    window_title = "Check chessboard position"
+def captureImage():
+    cap = cv2.VideoCapture(0)
 
-    print(stream_pipeline())
-    video_capture = cv2.VideoCapture(stream_pipeline, cv2.CAP_GSTREAMER)
+    # Capture frame
+    ret, frame = cap.read()
+    if ret:
+        cv2.imwrite('home/chesscamera/projects/testimage.jpg', frame)
+
+    cap.release()
+
+def show_camera():
+    window_title = "CSI Camera"
+
+    # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
+    print(gstreamer_pipeline(flip_method=0))
+    video_capture = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
     if video_capture.isOpened():
         try:
             window_handle = cv2.namedWindow(window_title, cv2.WINDOW_AUTOSIZE)
@@ -54,15 +72,6 @@ def show_camera():
     else:
         print("Error: Unable to open camera")
 
-def captureImage():
-    cap = cv2.VideoCapture(0)
-
-    # Capture frame
-    ret, frame = cap.read()
-    if ret:
-        cv2.imwrite('home/chesscamera/projects/testimage.jpg', frame)
-
-    cap.release()
 
 if __name__ == "__main__":
-    captureImage()
+    show_camera()
