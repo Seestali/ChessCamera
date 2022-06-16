@@ -44,7 +44,7 @@ def captureImage():
     # Capture frame
     ret, frame = cap.read()
     if ret:
-        cv2.imwrite('home/chesscamera/projects/testimage.jpg', frame)
+        cv2.imwrite('home/chesscamera/Projects/testimage.jpg', frame)
 
     cap.release()
 
