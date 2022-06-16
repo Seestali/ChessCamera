@@ -78,4 +78,4 @@ def show_camera():
 
 
 if __name__ == "__main__":
-    show_camera()
+    captureImage()
