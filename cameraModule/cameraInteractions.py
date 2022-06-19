@@ -11,7 +11,7 @@ def gstreamer_pipeline(
     sensor_id=0,
     capture_width=3264,
     capture_height=2464,
-    display_width=816,
+    display_width=960,
     display_height=616,
     framerate=21,
     flip_method=2,
@@ -34,12 +34,12 @@ def gstreamer_pipeline(
         )
     )
 
-def gspicture_pipeline(
+def gpicture_pipeline(
     sensor_id=0,
     capture_width=3264,
     capture_height=2464,
-    display_width=3264,
-    display_height=2464,
+    display_width=960,
+    display_height=616,
     framerate=21,
     flip_method=2,
 ):
@@ -63,8 +63,8 @@ def gspicture_pipeline(
 
 def captureImage(chessboardIsFound):
     # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
-    print(gspicture_pipeline(flip_method=2))
-    video_capture = cv2.VideoCapture(gspicture_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+    print(gpicture_pipeline(flip_method=2))
+    video_capture = cv2.VideoCapture(gpicture_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
     if video_capture.isOpened():
         try:
             time.sleep(2)
