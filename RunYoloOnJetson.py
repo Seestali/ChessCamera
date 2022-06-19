@@ -32,6 +32,7 @@ def mainMenu():
             # open camera feed
             show_camera()
             # close camera feed
+            c = waitForUserInput()
             print("Closing camera feed...")
         elif choice == "2":
             clear_console()
