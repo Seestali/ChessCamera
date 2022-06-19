@@ -36,16 +36,16 @@ def mainMenu():
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
-            img = captureImage()
+            captureImage(False)
             # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
             # save with specific filename
             # save resized as 416 x 416! important for model.
 
             # get file from directory
-            #img = 'jetson/cameraFeed/rotation270.jpeg'
+            img = 'jetson/cameraFeed/orientation.jpeg'
 
             # imread taken frame
-            chessboard = setup(cv2.imread(img))  # returns the chessboard tiles
+            chessboard = setup(img)  # returns the chessboard tiles
 
             if chessboard is not None:
                 print("Chessboard detected")
@@ -77,7 +77,9 @@ def mainMenu():
                 print("Press any key to return to the main menu")
                 c = waitForUserInput()
             else:
-                img = captureImage()
+                captureImage(True)
+                img = 'jetson/cameraFeed/chessboard.jpeg'
+                img = cv2.imread(img)
                 image = cv2.resize(img, (416, 416))
                 print("Running detection")
                 interference = model(image, size=416)

@@ -61,7 +61,7 @@ def gspicture_pipeline(
         )
     )
 
-def captureImage():
+def captureImage(chessboardIsFound):
     # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
     print(gspicture_pipeline(flip_method=2))
     video_capture = cv2.VideoCapture(gspicture_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
@@ -72,17 +72,19 @@ def captureImage():
             # Check to see if the user closed the window
             # Under GTK+ (Jetson Default), WND_PROP_VISIBLE does not work correctly. Under Qt it does
             # GTK - Substitute WND_PROP_AUTOSIZE to detect if window has been closed by user
-            #cv2.imwrite("img.jpg", frame)
-            return frame
+            if chessboardIsFound:
+                frame = cv2.resize(frame, (416,416))
+                cv2.imwrite("jetson/cameraFeed/chessboard.jpeg", frame)
+            else:
+                frame = cv2.resize(frame, (416, 416))
+                cv2.imwrite("jetson/cameraFeed/orientation.jpeg", frame)
         finally:
             video_capture.release()
-
     else:
         print("Error: Unable to open camera")
 
-
 def show_camera():
-    window_title = "CSI Camera"
+    window_title = "Check for chessboard"
 
     # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
     print(gstreamer_pipeline(flip_method=2))
@@ -108,6 +110,3 @@ def show_camera():
             cv2.destroyAllWindows()
     else:
         print("Error: Unable to open camera")
-
-if __name__ == "__main__":
-    captureImage()
