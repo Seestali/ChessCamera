@@ -1,4 +1,4 @@
-import cv2, time
+import cv2
 
 """ 
 gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
@@ -9,11 +9,11 @@ Default 1920x1080 displayd in a 1/4 size window
 
 def gstreamer_pipeline(
     sensor_id=0,
-    capture_width=3264,
-    capture_height=2464,
+    capture_width=1920,
+    capture_height=1080,
     display_width=960,
-    display_height=616,
-    framerate=21,
+    display_height=540,
+    framerate=30,
     flip_method=2,
 ):
     return (
@@ -31,15 +31,15 @@ def gstreamer_pipeline(
             flip_method,
             display_width,
             display_height,
-        )
+            )
     )
 
 def gpicture_pipeline(
     sensor_id=0,
     capture_width=3264,
     capture_height=2464,
-    display_width=960,
-    display_height=616,
+    display_width=3264,
+    display_height=2464,
     framerate=21,
     flip_method=2,
 ):
@@ -67,7 +67,6 @@ def captureImage(chessboardIsFound):
     video_capture = cv2.VideoCapture(gpicture_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
     if video_capture.isOpened():
         try:
-            time.sleep(2)
             ret_val, frame = video_capture.read()
             # Check to see if the user closed the window
             # Under GTK+ (Jetson Default), WND_PROP_VISIBLE does not work correctly. Under Qt it does
