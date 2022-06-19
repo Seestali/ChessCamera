@@ -5,7 +5,6 @@
 yolov5/wandb/run*
 # Neural Network weights -----------------------------------------------------------------------------------------------
 *.weights
-*.pt
 *.pb
 *.onnx
 *.mlmodel
@@ -57,3 +56,5 @@ Temporary Items
 .idea/dictionaries
 labels.cache
 yolov5/runs/detect/*
+/yolov5/runs/train/Big_400ep_yolov5n6/weights
+/yolov5/weights
