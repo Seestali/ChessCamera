@@ -1,15 +1,16 @@
 
-from detection.figureAssignment import *
-from detection.chessLocalisation import *
+import os
+import torch
+
 from cameraModule.cameraInteractions import *
-import os, torch, cv2
-from time import sleep
+from detection.chessLocalisation import *
+from detection.figureAssignment import *
+
 
 ##### Main #####
 # initiate interactive TUI
 def mainMenu():
     chessboard = None
-    isOriented = False
     orientation = 0
 
 
