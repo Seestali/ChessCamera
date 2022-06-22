@@ -14,8 +14,7 @@ def mainMenu():
     orientation = 0
 
 
-    model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
-    model.conf = 0.25
+
 
     while True:
         clear_console()
@@ -39,9 +38,6 @@ def mainMenu():
             clear_console()
             print("Detecting orientation and chessboard")
             captureImage(False)
-            # TODO: take image with camera and save in directory 'cameraFeed/' as jpeg
-            # save with specific filename
-            # save resized as 416 x 416! important for model.
 
             # get file from directory
             img = 'jetson/cameraFeed/orientation.jpeg'
@@ -51,8 +47,12 @@ def mainMenu():
 
             if chessboard is not None:
                 print("Chessboard detected")
+                model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
+                model.conf = 0.25
+                clear_console()
                 # Inference
                 interference = model(img, size=416)
+                model = None
                 # Assign figure to chessboard
                 chessboard = assignFigures(interference, chessboard)
                 print("Figures assigned")
@@ -83,8 +83,12 @@ def mainMenu():
                 img = 'jetson/cameraFeed/chessboard.jpeg'
                 img = cv2.imread(img)
                 image = cv2.resize(img, (416, 416))
+                model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
+                model.conf = 0.25
+                clear_console()
                 print("Running detection")
                 interference = model(image, size=416)
+                model = None
                 # Assign figure to chessboard
                 chessboard = assignFigures(interference, chessboard)
                 chessboard_copy = chessboard
