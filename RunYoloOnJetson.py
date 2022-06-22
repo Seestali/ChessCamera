@@ -41,7 +41,8 @@ def mainMenu():
             captureImage(False)
 
             # get file from directory
-            img = 'jetson/cameraFeed/orientation.jpeg'
+            #img = 'jetson/cameraFeed/orientation.jpeg'
+            img = 'jetson/cameraFeed/rotation0.jpeg'
 
             # imread taken frame
             chessboard = setup(img)  # returns the chessboard tiles
@@ -82,14 +83,15 @@ def mainMenu():
                 c = waitForUserInput()
             else:
                 captureImage(True)
-                img = 'jetson/cameraFeed/chessboard.jpeg'
+                img = 'jetson/cameraFeed/rotation0.jpeg'
+                #img = 'jetson/cameraFeed/chessboard.jpeg'
                 img = cv2.imread(img)
                 image = cv2.resize(img, (416, 416))
                 model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
                 model.conf = 0.25
                 clear_console()
                 print("Running detection")
-                interference = model(image, size=416)
+                interference = model(img, size=416)
                 model = None
                 # Assign figure to chessboard
                 chessboard = assignFigures(interference, chessboard)
