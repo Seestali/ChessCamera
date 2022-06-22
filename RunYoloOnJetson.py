@@ -34,6 +34,7 @@ def mainMenu():
             # close camera feed
             c = waitForUserInput()
             print("Closing camera feed...")
+            clear_console()
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
@@ -69,6 +70,7 @@ def mainMenu():
                 print("Press any key to quit to main menu")
                 c = waitForUserInput()
             else:
+                clear_console()
                 print("Could not detect chessboard...")
                 print("Press any key to quit to main menu")
                 c = waitForUserInput()
