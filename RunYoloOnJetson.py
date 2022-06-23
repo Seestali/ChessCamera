@@ -46,7 +46,7 @@ def mainMenu():
 
             if chessboard is not None:
                 print("Chessboard detected")
-                model = torch.hub.load('ultralytics/yolov5', 'custom', path='jetson/weights/best.pt')  # local model
+                model = torch.hub.load('.', 'custom', path='jetson/weights/best.pt',source='local')  # local model
                 model.conf = 0.25
                 clear_console()
                 # Inference
