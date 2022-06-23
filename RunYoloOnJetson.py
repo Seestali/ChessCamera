@@ -35,7 +35,7 @@ def mainMenu():
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
-            img = captureImage()
+            img = captureImage(False)
 
             # get file from directory
             #img = 'jetson/cameraFeed/orientation.jpeg'
