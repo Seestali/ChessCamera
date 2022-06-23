@@ -13,9 +13,6 @@ def mainMenu():
     chessboard = None
     orientation = 0
 
-
-
-
     while True:
         clear_console()
         print(34*"-")
@@ -38,11 +35,11 @@ def mainMenu():
         elif choice == "2":
             clear_console()
             print("Detecting orientation and chessboard")
-            captureImage(False)
+            img = captureImage()
 
             # get file from directory
             #img = 'jetson/cameraFeed/orientation.jpeg'
-            img = 'jetson/cameraFeed/rotation0.jpeg'
+            #img = 'jetson/cameraFeed/rotation0.jpeg'
 
             # imread taken frame
             chessboard = setup(img)  # returns the chessboard tiles
