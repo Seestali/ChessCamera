@@ -184,8 +184,8 @@ def getAllOuterPoints(corners, image):
 # returns a chessboard matrix consisting of 8x8 tiles with 4 corner-points
 def setup(image):
     chessboard = ChessBoard
-    #image = cv2.resize(cv2.imread(image), (416, 416))
-    image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+    image = cv2.resize(image, (416, 416))
+    #image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
 
     im_bw = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     (found, corners) = cv2.findChessboardCorners(im_bw, (7, 7), None) #inner corners
